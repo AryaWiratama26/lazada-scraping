@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 3. Scrap Data
 
-```bash
+```python
 from sources import LazadaBot
 
 """
