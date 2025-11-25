@@ -5,6 +5,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+import csv
+from typing import Literal
+
+TYPE_FILE = Literal['csv', 'txt']
 
 CHROME_DRIVER_PATH = "/usr/bin/chromedriver"
 
@@ -21,17 +25,34 @@ service = Service(executable_path=CHROME_DRIVER_PATH)
 driver = webdriver.Chrome(service=service, options=OP)
 
 
+DATA_SCARPING = {
+    'title': [],
+    'price': []
+}
+
+
 class LazadaBot:
     def __init__(self):
         pass
     
 
-    def __save_to_txt(self, price, title, output_file):
-        with open(f"{output_file}.txt", "a") as f:
-            
-            f.write(f"{title}, {price}"+"\n")
 
-    def scrap(self, keyword, n_data, output_file):
+    def __save_to_file(self, file_type, price, title, output_file):
+        if file_type == 'csv':
+
+            with open(f"{output_file}.csv", "a") as f:
+
+                writer = csv.writer(f)
+                writer.writerow([title, price])
+        elif file_type == 'txt':
+
+            with open(f"{output_file}.txt", "a") as f:
+                f.write(f"{title}, {price}\n")
+        else:
+
+            raise ValueError("Harus csv atau txt!")
+
+    def scrap(self, keyword, n_data, output_file, file_type: TYPE_FILE = 'csv'):
 
         try:
             driver.get("https://www.lazada.co.id/")
@@ -69,10 +90,18 @@ class LazadaBot:
                     price = price.replace("Rp", "")
                     price = price.replace(".", "")
                     price = price.replace(",", "")
-                    self.__save_to_txt(price, title, output_file)
+                    
+                    
+                    DATA_SCARPING['title'].append(title)
+                    DATA_SCARPING['price'].append(price)
+
+                    
+                    self.__save_to_file(file_type, price, title, output_file)
+
+                    print(f"Data di scraping, file bernama {output_file}.{file_type}")
 
                 except Exception as e:
-                    print("Harga ga ketemu")
+                    print("Errorr brow:\n {e}")
 
 
             time.sleep(5)
