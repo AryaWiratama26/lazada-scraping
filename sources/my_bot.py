@@ -26,10 +26,10 @@ class LazadaBot:
         pass
     
 
-    def __save_to_txt(self, price, output_file):
+    def __save_to_txt(self, price, title, output_file):
         with open(f"{output_file}.txt", "a") as f:
             
-            f.write(price +"\n")
+            f.write(f"{title}, {price}"+"\n")
 
     def scrap(self, keyword, n_data, output_file):
 
@@ -46,8 +46,11 @@ class LazadaBot:
             search_keyword.send_keys(keyword)
             search_keyword.send_keys(Keys.ENTER)
 
+            start = 0
+            end = 800
+
             time.sleep(3)
-            driver.execute_script("window.scrollTo(0, 800);")
+            driver.execute_script(f"window.scrollTo({start}, {end});")
             time.sleep(2)
 
 
@@ -61,8 +64,12 @@ class LazadaBot:
 
                 try:        
                     price = card.find_element(By.XPATH, ".//span[contains(text(), 'Rp')]").text
-                    price.replace("Rp", "")
-                    self.__save_to_txt(price, output_file)
+                    title = card.find_element(By.CSS_SELECTOR, "a[title]").text
+                    
+                    price = price.replace("Rp", "")
+                    price = price.replace(".", "")
+                    price = price.replace(",", "")
+                    self.__save_to_txt(price, title, output_file)
 
                 except Exception as e:
                     print("Harga ga ketemu")
