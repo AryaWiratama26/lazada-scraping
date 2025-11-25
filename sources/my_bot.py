@@ -26,12 +26,12 @@ class LazadaBot:
         pass
     
 
-    def __save_to_txt(self, price):
-        with open("data.txt", "a") as f:
+    def __save_to_txt(self, price, output_file):
+        with open(f"{output_file}.txt", "a") as f:
             
             f.write(price +"\n")
 
-    def scrap(self, keyword, n_data):
+    def scrap(self, keyword, n_data, output_file):
 
         try:
             driver.get("https://www.lazada.co.id/")
@@ -62,7 +62,7 @@ class LazadaBot:
                 try:        
                     price = card.find_element(By.XPATH, ".//span[contains(text(), 'Rp')]").text
                     price.replace("Rp", "")
-                    self.__save_to_txt(price)
+                    self.__save_to_txt(price, output_file)
 
                 except Exception as e:
                     print("Harga ga ketemu")

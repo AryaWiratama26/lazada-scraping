@@ -1,4 +1,5 @@
 from sources import LazadaBot
 
+
 bot = LazadaBot()
-bot.scrap("ikat pinggang", 60)
+bot.scrap("iphone", 40, "iphone_price")
