@@ -7,7 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import csv
 from typing import Literal
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
+import os
 
 TYPE_FILE = Literal['csv', 'txt', 'xlsx']
 
@@ -44,11 +45,19 @@ class LazadaBot:
 
             with open(f"{output_file}.txt", "a", encoding="utf-8") as f:
                 f.write(f"{title}, {price}, {sold}\n")
-        elif file_type == 'xlsx':            
-            wb = Workbook()
-            ws = wb.active
-            ws.append([title, price, sold])
-            wb.save(f"{output_file}.xlsx")  
+        elif file_type == 'xlsx':          
+
+            if os.path.exists(f"{output_file}.xlsx"):
+
+                wb = load_workbook(f"{output_file}.xlsx")
+                ws = wb.active
+                ws.append([title, price, sold])
+                wb.save(f"{output_file}.xlsx")
+            else:         
+                wb = Workbook()
+                ws = wb.active
+                ws.append([title, price, sold])
+                wb.save(f"{output_file}.xlsx")  
         else:
 
             raise ValueError("Harus csv atau txt!")
