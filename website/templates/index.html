@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scarping Lazada</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <h1>Scarping Lazada</h1>
+    <form method="POST">
+        <label for="keyword">Keyword</label>
+        <input type="text" name="keyword" id="keyword">
+
+        <label for="n_data">Number of Data</label>
+        <input type="number" name="n_data" id="n_data">
+
+        <label for="output_file">Output File</label>
+        <input type="text" name="output_file" id="output_file">
+
+        <label for="file_type">File Type</label>
+        <select name="file_type" id="file_type">
+            
+            <option value="csv">CSV</option>
+            <option value="txt">TXT</option>
+        </select>
+        <button type="submit" onclick="startscraping()">Scrap</button>
+    </form>
+
+
+    <div id="startscraping">
+        <p></p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+
+</body>
+
+</html>
