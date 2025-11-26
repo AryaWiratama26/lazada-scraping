@@ -92,6 +92,8 @@ http://127.0.0.1:5000
 ## Demo Video
 [Demo Video](https://youtu.be/4KoSwTOvX2o?si=Cp5EZ8T4uLWd3MpF)
 
+
+## Output Example
 [Output CSV Example](/iphone_price.csv) <br>
 [Output TXT Example](/iphone_price.txt) <br>
 [Output XLSX Example](/iphone_price.xlsx)
