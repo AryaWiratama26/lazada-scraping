@@ -13,7 +13,7 @@ TYPE_FILE = Literal['csv', 'txt']
 CHROME_DRIVER_PATH = "/usr/bin/chromedriver"
 
 OP = webdriver.ChromeOptions()
-# OP.add_argument('--headless')  
+OP.add_argument('--headless')  
 OP.add_argument("--disable-blink-features=AutomationControlled")
 
 OP.add_argument("--no-sandbox")
@@ -32,17 +32,17 @@ class LazadaBot:
     
 
 
-    def __save_to_file(self, file_type, price, title, sell, output_file):
+    def __save_to_file(self, file_type, price, title, sold, output_file):
         if file_type == 'csv':
 
             with open(f"{output_file}.csv", "a") as f:
 
                 writer = csv.writer(f)
-                writer.writerow([title, price, sell])
+                writer.writerow([title, price, sold])
         elif file_type == 'txt':
 
             with open(f"{output_file}.txt", "a", encoding="utf-8") as f:
-                f.write(f"{title}, {price}, {sell}\n")
+                f.write(f"{title}, {price}, {sold}\n")
         else:
 
             raise ValueError("Harus csv atau txt!")
@@ -62,12 +62,15 @@ class LazadaBot:
             search_keyword.send_keys(keyword)
             search_keyword.send_keys(Keys.ENTER)
 
+            print("Start Scraping.....")
+
             start = 0
             end = 800
 
             time.sleep(3)
             driver.execute_script(f"window.scrollTo({start}, {end});")
             time.sleep(2)
+
 
 
            
@@ -84,22 +87,23 @@ class LazadaBot:
                     
 
                     try:
-                        sell = card.find_element(By.XPATH, ".//span[contains(text(), 'Terjual')]").text
-                        sell = sell.replace("Terjual", "")
-                        sell = sell.replace(" ", "")
-                        sell = sell.replace(".", "")
-                        sell = sell.replace(",", "")
+                        sold = card.find_element(By.XPATH, ".//span[contains(text(), 'Terjual')]").text
+                        sold = sold.replace("Terjual", "")
+                        sold = sold.replace(" ", "")
+                        sold = sold.replace(".", "")
+                        sold = sold.replace(",", "")
                     except:
-                        sell = 0
+                        sold = 0
 
 
+                
 
                     price = price.replace("Rp", "")
                     price = price.replace(".", "")
                     price = price.replace(",", "")                              
                 
                     
-                    self.__save_to_file(file_type, price, title, sell, output_file)
+                    self.__save_to_file(file_type, price, title, sold, output_file)
 
                     print(f"Data di scraping, file bernama {output_file}.{file_type}")
 
