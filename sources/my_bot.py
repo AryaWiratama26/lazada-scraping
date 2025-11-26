@@ -81,17 +81,19 @@ class LazadaBot:
                 try:        
                     price = card.find_element(By.XPATH, ".//span[contains(text(), 'Rp')]").text
                     title = card.find_element(By.CSS_SELECTOR, "a[title]").text
-                    sell = card.find_element(By.XPATH, ".//span[contains(text(), 'Terjual')]").text
+                    
 
-                    if sell == None or sell == "":
-                        sell = 0
-                    else:
-                        
+                    try:
+                        sell = card.find_element(By.XPATH, ".//span[contains(text(), 'Terjual')]").text
                         sell = sell.replace("Terjual", "")
                         sell = sell.replace(" ", "")
                         sell = sell.replace(".", "")
                         sell = sell.replace(",", "")
-                    
+                    except:
+                        sell = 0
+
+
+
                     price = price.replace("Rp", "")
                     price = price.replace(".", "")
                     price = price.replace(",", "")                              
