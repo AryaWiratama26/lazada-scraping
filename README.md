@@ -63,6 +63,7 @@ git clone https://github.com/AryaWiratama26/lazada-scraping.git
 
 ```bash
 pip install -r requirements.txt
+```
 
 3. Change Directory to website
 
