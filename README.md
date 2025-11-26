@@ -51,6 +51,37 @@ Title,Price,Sold
 Apple iPhone 16,14999000,29
 ```
 
+## How to use website (Flask)
+
+1. Clone This Repo
+
+```bash
+git clone https://github.com/AryaWiratama26/lazada-scraping.git
+```
+
+2.  Install Requirements
+
+```bash
+pip install -r requirements.txt
+
+3. Change Directory to website
+
+```bash
+cd website
+```
+
+4. Run
+
+```bash
+python3 app.py
+```
+
+5. Open Browser (Localhost)
+
+```bash
+http://localhost:5000
+```
+```
 
 [Output CSV Example](/iphone_price.csv) <br>
 [Output TXT Example](/iphone_price.txt)
