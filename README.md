@@ -38,3 +38,20 @@ bot.scrap(keyword="iphone", n_data=40, output_file="iphone_price", file_type='tx
 ```bash
 python3 main.py
 ```
+
+5. Output Format
+
+```csv
+Title,Price,Sold
+Apple iPhone 16,14999000,29
+```
+
+```txt
+Title,Price,Sold
+Apple iPhone 16,14999000,29
+```
+
+
+[Output CSV Example](/iphone_price.csv) <br>
+[Output TXT Example](/iphone_price.txt)
+
