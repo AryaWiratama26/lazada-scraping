@@ -26,11 +26,12 @@ from sources import LazadaBot
 - keyword: keyword to search
 - n_data: number of data to scrap
 - output_file: output file name
-- file_type: file type. Default = csv
+- file_type: file type (csv, txt, xlsx). Default = csv
 """
 bot = LazadaBot()
 bot.scrap(keyword="iphone", n_data=40, output_file="iphone_price", file_type="csv")
 bot.scrap(keyword="iphone", n_data=40, output_file="iphone_price", file_type='txt')
+bot.scrap(keyword="iphone", n_data=40, output_file="iphone_price", file_type='xlsx')
 ```
 
 4. Run
@@ -47,6 +48,11 @@ Apple iPhone 16,14999000,29
 ```
 
 ```txt
+Title,Price,Sold
+Apple iPhone 16,14999000,29
+```
+
+```xlsx
 Title,Price,Sold
 Apple iPhone 16,14999000,29
 ```
@@ -83,6 +89,10 @@ python3 app.py
 http://127.0.0.1:5000
 ```
 
+## Demo Video
+[Demo Video](https://youtu.be/4KoSwTOvX2o?si=Cp5EZ8T4uLWd3MpF)
+
 [Output CSV Example](/iphone_price.csv) <br>
-[Output TXT Example](/iphone_price.txt)
+[Output TXT Example](/iphone_price.txt) <br>
+[Output XLSX Example](/iphone_price.xlsx)
 
