@@ -25,11 +25,6 @@ service = Service(executable_path=CHROME_DRIVER_PATH)
 driver = webdriver.Chrome(service=service, options=OP)
 
 
-DATA_SCARPING = {
-    'title': [],
-    'price': []
-}
-
 
 class LazadaBot:
     def __init__(self):
@@ -37,17 +32,17 @@ class LazadaBot:
     
 
 
-    def __save_to_file(self, file_type, price, title, output_file):
+    def __save_to_file(self, file_type, price, title, sell, output_file):
         if file_type == 'csv':
 
             with open(f"{output_file}.csv", "a") as f:
 
                 writer = csv.writer(f)
-                writer.writerow([title, price])
+                writer.writerow([title, price, sell])
         elif file_type == 'txt':
 
-            with open(f"{output_file}.txt", "a") as f:
-                f.write(f"{title}, {price}\n")
+            with open(f"{output_file}.txt", "a", encoding="utf-8") as f:
+                f.write(f"{title}, {price}, {sell}\n")
         else:
 
             raise ValueError("Harus csv atau txt!")
@@ -86,17 +81,17 @@ class LazadaBot:
                 try:        
                     price = card.find_element(By.XPATH, ".//span[contains(text(), 'Rp')]").text
                     title = card.find_element(By.CSS_SELECTOR, "a[title]").text
+                    sell = card.find_element(By.XPATH, ".//span[contains(text(), 'Terjual')]").text
+
+                    if sell == None:
+                        sell = 0
                     
                     price = price.replace("Rp", "")
                     price = price.replace(".", "")
-                    price = price.replace(",", "")
+                    price = price.replace(",", "")                              
+                
                     
-                    
-                    DATA_SCARPING['title'].append(title)
-                    DATA_SCARPING['price'].append(price)
-
-                    
-                    self.__save_to_file(file_type, price, title, output_file)
+                    self.__save_to_file(file_type, price, title, sell, output_file)
 
                     print(f"Data di scraping, file bernama {output_file}.{file_type}")
 
