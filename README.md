@@ -131,9 +131,19 @@ TELEGRAM_BOT_TOKEN='YOUR TELEGRAM BOT TOKEN'
 python3 bot.py
 ```
 
+7. Scrap Command Telegram Bot
+
+```bash
+/scrap "keyword" "n_data" "output_file" "file_type"
+
+Example:
+/scrap "iphone" "20" "iphone_price" "csv"
+```
+
 
 ## Demo Video
-[Demo Video](https://youtu.be/4KoSwTOvX2o?si=Cp5EZ8T4uLWd3MpF)
+[Demo Video](https://youtu.be/4KoSwTOvX2o?si=Cp5EZ8T4uLWd3MpF) <br>
+[Demo Video (Telegram Bot)](https://youtube.com/shorts/EIQSOjEEyE0?si=1xatMCu50tBPvHu2)
 
 
 ## Output Example
