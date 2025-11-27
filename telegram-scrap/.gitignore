@@ -1,0 +1,4 @@
+.env
+files/*.csv
+files/*.xlsx
+files/*.txt
