@@ -23,8 +23,9 @@ def index():
         
         now_dir = os.path.dirname(__file__)
         output_dir = os.path.join(now_dir, 'static', 'files')
-               
-            
+                   
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
     
         full_output_path = os.path.join(output_dir, output_file)
         

@@ -39,6 +39,10 @@ async def scrap(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     path_file = os.path.join(os.path.dirname(__file__), 'files', f'{file_name}')
 
+    if not os.path.exists(path_file):
+        os.makedirs(path_file)
+
+
     my_bot = LazadaBot()
     my_bot.scrap(keyword, n_data, path_file, type_file)
 
