@@ -89,6 +89,49 @@ python3 app.py
 http://127.0.0.1:5000
 ```
 
+## How to use website (Telegram Bot)
+
+1. Clone This Repo
+
+```bash
+git clone https://github.com/AryaWiratama26/lazada-scraping.git
+```
+
+2.  Install Requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Change Directory to telegram-scrap
+
+```bash
+cd telegram-scrap
+```
+
+4. Create Telegram Bot
+
+```bash
+1. Search @BotFather on Telegram
+2. Start Chat with @BotFather
+3. Type /newbot
+4. Follow the instructions
+5. Copy the token
+```
+
+5. Create .env
+
+```bash
+TELEGRAM_BOT_TOKEN='YOUR TELEGRAM BOT TOKEN'
+```
+
+6. Run
+
+```bash
+python3 bot.py
+```
+
+
 ## Demo Video
 [Demo Video](https://youtu.be/4KoSwTOvX2o?si=Cp5EZ8T4uLWd3MpF)
 
