@@ -16,6 +16,7 @@ TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'Hello {update.effective_user.first_name}, welcome to Lazada Bot!\n')
 
+
 async def scrap(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     get_message = " ".join(context.args)
 
@@ -25,15 +26,30 @@ async def scrap(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     keyword, n_data, file_name, type_file = find_patterns
 
+    keyword = keyword.lower().strip()
+    n_data = int(n_data)
+    type_file = type_file.lower().strip()
+
     if type_file not in DATA_TYPE:
         await update.message.reply_text(f'Only support {DATA_TYPE}')
+        return
 
-    n_data = int(n_data)
+    await update.message.reply_text(f'Sccraping data...\nPleasee wait!!!!')
 
+
+    path_file = os.path.join(os.path.dirname(__file__), 'files', f'{file_name}')
 
     my_bot = LazadaBot()
-    my_bot.scrap(keyword, n_data, file_name, type_file)
+    my_bot.scrap(keyword, n_data, path_file, type_file)
+
+    with open(f"{path_file}.{type_file}", 'rb') as file:
+        await update.message.reply_document(file)
     
+    # os.remove(path_file)
+    
+    await update.message.reply_text(f'Done!!!!!')
+
+
     print(f"{keyword}, {n_data}, {file_name}, {type_file}")
 
 
