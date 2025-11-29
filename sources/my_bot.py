@@ -1,4 +1,4 @@
-import time, random
+import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -15,7 +15,7 @@ TYPE_FILE = Literal['csv', 'txt', 'xlsx']
 CHROME_DRIVER_PATH = "/usr/bin/chromedriver"
 
 OP = webdriver.ChromeOptions()
-OP.add_argument('--headless')  
+# OP.add_argument('--headless')  
 OP.add_argument("--disable-blink-features=AutomationControlled")
 
 OP.add_argument("--no-sandbox")
@@ -79,27 +79,33 @@ class LazadaBot:
 
             print("Start Scraping.....")
 
-            start = 0
-            end = 800
+            
 
-            time.sleep(3)
-            driver.execute_script(f"window.scrollTo({start}, {end});")
-            time.sleep(2)
+            scraped = 0
 
+            while scraped < n_data:
 
+                time.sleep(3)
+                driver.execute_script(f"window.scrollTo(0, 1500);")
+                time.sleep(2)
 
-           
-            div_card = WebDriverWait(driver, 20).until(
-                EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div[data-qa-locator='product-item']"))
-            )
-
-            for card in div_card[:n_data]:
+                div_card = WebDriverWait(driver, 20).until(
+                        EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div[data-qa-locator='product-item']"))
+                )
 
 
-                try:        
+                
+                for card in div_card:
+
+
+                    if scraped >= n_data:
+                        print(f"Data berhasil di scrape: {scraped}")
+                        break
+
+
                     price = card.find_element(By.XPATH, ".//span[contains(text(), 'Rp')]").text
                     title = card.find_element(By.CSS_SELECTOR, "a[title]").text
-                    
+                
 
                     try:
                         sold = card.find_element(By.XPATH, ".//span[contains(text(), 'Terjual')]").text
@@ -110,8 +116,7 @@ class LazadaBot:
                     except:
                         sold = 0
 
-
-                
+            
 
                     price = price.replace("Rp", "")
                     price = price.replace(".", "")
@@ -120,10 +125,27 @@ class LazadaBot:
                     
                     self.__save_to_file(file_type, price, title, sold, output_file)
 
-                    print(f"Data di scraping, file bernama {output_file}.{file_type}")
+                    scraped += 1
 
-                except Exception as e:
-                    print("Errorr brow:\n {e}")
+                    print(f"{scraped}. Data di scraping, file bernama {output_file}.{file_type}")
+
+                    
+                
+                try:
+                    next_page = WebDriverWait(driver, 10).until(
+                        EC.element_to_be_clickable((By.CSS_SELECTOR, "li[class='ant-pagination-next'][title='Next Page']"))
+                    )
+
+
+                    button_next = next_page.find_element(By.CSS_SELECTOR, "button[type='button']")
+                    button_next.click()
+                    print("Change to next pagee")
+                    time.sleep(4)
+
+                except:
+
+                    break
+            
 
 
             time.sleep(5)
