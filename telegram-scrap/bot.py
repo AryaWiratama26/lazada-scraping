@@ -13,7 +13,7 @@ DATA_TYPE = ['csv','txt','xlsx']
 
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 
-async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'Hello {update.effective_user.first_name}, welcome to Lazada Bot!\n')
 
 
@@ -33,6 +33,10 @@ async def scrap(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if type_file not in DATA_TYPE:
         await update.message.reply_text(f'Only support {DATA_TYPE}')
         return
+
+
+    await update.message.reply_text(f'Data: {keyword}, {n_data}, {file_name}, {type_file}')
+
 
     await update.message.reply_text(f'Sccraping data...\nPleasee wait!!!!')
 
@@ -59,7 +63,7 @@ async def scrap(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 app = ApplicationBuilder().token(TELEGRAM_BOT_TOKEN).build()
 
-app.add_handler(CommandHandler("hello", hello))
+app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("scrap", scrap))
 
 app.run_polling()

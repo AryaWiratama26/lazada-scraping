@@ -15,7 +15,7 @@ TYPE_FILE = Literal['csv', 'txt', 'xlsx']
 CHROME_DRIVER_PATH = "/usr/bin/chromedriver"
 
 OP = webdriver.ChromeOptions()
-# OP.add_argument('--headless')  
+OP.add_argument('--headless')  
 OP.add_argument("--disable-blink-features=AutomationControlled")
 
 OP.add_argument("--no-sandbox")
