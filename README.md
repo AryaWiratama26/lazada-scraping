@@ -151,3 +151,7 @@ Example:
 [Output TXT Example](/iphone_price.txt) <br>
 [Output XLSX Example](/iphone_price.xlsx)
 
+
+Made by <b>Arya Wiratama</b> with ❤️ <br>
+If you have any questions, please contact [here](https://aryawiratama.site/#contact)
+
